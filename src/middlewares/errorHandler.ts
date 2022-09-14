@@ -13,6 +13,9 @@ export default function errorHandler (error:any, req: Request, res: Response, ne
   if(error.code === 'Unauthorized'){
     return res.status(401).send(error.message)
   }
-
+  if(error.name === 'JsonWebTokenError'){
+    return res.status(401).send(error.message)
+  }
+  console.log(error)
   res.sendStatus(500);
 }
