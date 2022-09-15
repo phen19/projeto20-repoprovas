@@ -7,6 +7,7 @@ beforeAll(async () =>{
     await prisma.$executeRaw`TRUNCATE TABLE users RESTART IDENTITY`
 })
 
+
 describe("POST /signup -> create user",() => {
      it('returns 201 for created', async () => {
         const body = validData()
@@ -50,7 +51,6 @@ describe("POST /signin -> user login",() => {
        const result = await supertest(app).post("/signin").send(body)
 
        expect(result.status).toEqual(200)
-       console.log(result.body.token)
    })
 
    it('returns 401 for incorrect password', async () => {
