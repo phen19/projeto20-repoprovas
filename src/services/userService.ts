@@ -1,5 +1,5 @@
-import * as userRepository from "../repositories/userRepository.js";
-import { UserData } from "../types/userType.js";
+import * as userRepository from "../repositories/userRepository";
+import { UserData } from "../types/userType";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken"
 

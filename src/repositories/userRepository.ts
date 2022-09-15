@@ -1,5 +1,5 @@
-import {prisma} from "../database/database.js"
-import { UserData } from "../types/userType.js"
+import {prisma} from "../database/database"
+import { UserData } from "../types/userType"
 
 async function findByEmail( email: string){
     return prisma.users.findFirst({

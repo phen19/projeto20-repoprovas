@@ -1,6 +1,6 @@
 import {Request, Response} from "express";
-import { UserData } from "../types/userType.js";
-import * as userService from "../services/userService.js";
+import { UserData } from "../types/userType";
+import * as userService from "../services/userService";
 
 export async function signUp(req: Request, res: Response){
     const { email, password } = req.body;
