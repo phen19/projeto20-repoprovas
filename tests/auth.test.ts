@@ -10,21 +10,21 @@ beforeAll(async () =>{
 
 describe("POST /signup -> create user",() => {
      it('returns 201 for created', async () => {
-        const body = validData()
+        const body = await validData()
         const result = await supertest(app).post("/signup").send(body)
-
         expect(result.status).toEqual(201)
     })
 
     it('returns 409 for conflict', async () => {
-        const body = validData()
+        const body = await validData()
+        await supertest(app).post("/signup").send(body)
         const result = await supertest(app).post("/signup").send(body)
-
+        
         expect(result.status).toEqual(409)
     })
 
     it('returns 422 for empty fields', async () => {
-        const body = emptyFields()
+        const body = await emptyFields()
         const result = await supertest(app).post("/signup").send(body)
 
         expect(result.status).toEqual(422)
@@ -47,28 +47,30 @@ describe("POST /signup -> create user",() => {
 
 describe("POST /signin -> user login",() => {
     it('returns 200 for success login', async () => {
-       const body = validDataSignIn()
-       const result = await supertest(app).post("/signin").send(body)
+        const insertUser = await validData()
+        await supertest(app).post("/signup").send(insertUser)
+        const body = await validDataSignIn()
+        const result = await supertest(app).post("/signin").send(body)
 
        expect(result.status).toEqual(200)
    })
 
    it('returns 401 for incorrect password', async () => {
-       const body = incorrectPassword()
+       const body = await incorrectPassword()
        const result = await supertest(app).post("/signin").send(body)
 
        expect(result.status).toEqual(401)
    })
 
    it('returns 401 for incorrect email', async () => {
-        const body = incorrectEmail()
+        const body = await incorrectEmail()
         const result = await supertest(app).post("/signin").send(body)
 
         expect(result.status).toEqual(401)
     })
 
    it('returns 422 for empty fields', async () => {
-       const body = emptyFieldsSignIn()
+       const body = await emptyFieldsSignIn()
        const result = await supertest(app).post("/signin").send(body)
 
        expect(result.status).toEqual(422)
@@ -80,7 +82,7 @@ describe("POST /signin -> user login",() => {
    })
 
    it('returns 422 for invalid fields', async () => {
-       const body = invalidJoiValidationSignIn()
+       const body = await invalidJoiValidationSignIn()
        const result = await supertest(app).post("/signin").send(body)
 
        expect(result.status).toEqual(422)

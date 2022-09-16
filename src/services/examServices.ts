@@ -43,6 +43,15 @@ async function createExam(examBody: ExamBody){
     
 }
 
+async function getExamsByDisciplines() {
+    return await examRepository.getExamsByDisciplines()
+}
+
+async function getExamsByTeacher() {
+    return await examRepository.getExamsByTeacher()
+}
 export {
-    createExam
+    createExam,
+    getExamsByDisciplines,
+    getExamsByTeacher
 }

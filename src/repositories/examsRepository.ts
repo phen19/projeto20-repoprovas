@@ -61,11 +61,57 @@ async function createExam( examData: ExamData){
     })
 }
 
+async function getExamsByDisciplines (){
+    let result = await prisma.terms.findMany({
+        select: { number: true, Disciplines: {
+              select: { name: true, TeachersDisciplines: {
+                  select: { Tests: {
+                      select: { id: true, name: true, pdfUrl:true, categories: {
+                          select: { name: true,
+                          },
+                        },
+                        teachersDiscipline: {
+                          select: { teachers:{
+                              select:{ name: true,
+                              },
+                            }
+                          }
+                        }
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        })
+        return result
+}
+
+async function getExamsByTeacher(){
+  return await prisma.teachers.findMany({
+    select:{ name: true, TeachersDisciplines:{
+      select: {Tests: {
+        select: {id: true, name: true, pdfUrl: true, categories: {
+          select: { name: true}},
+        teachersDiscipline:{ 
+          select:{ disciplines:{
+            select:{name:true}}}}
+        }
+      }
+      }}
+    }
+    
+  })
+}
+
 export {
     findByName,
     findCategory,
     findTeacher,
     findDiscipline,
     findTeachersDisciplineId,
-    createExam
+    createExam,
+    getExamsByDisciplines,
+    getExamsByTeacher
 }

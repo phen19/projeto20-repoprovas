@@ -7,3 +7,13 @@ export async function createExam(req: Request, res: Response){
     await examService.createExam(examBody)
     res.status(201).send("exam created")
 }
+
+export async function getExamsByDisciplines(req: Request, res: Response){
+    const result = await examService.getExamsByDisciplines()
+    res.status(200).send(result)
+}
+
+export async function getExamsByTeacher(req: Request, res: Response){
+    const result = await examService.getExamsByTeacher()
+    res.status(200).send(result)
+}
