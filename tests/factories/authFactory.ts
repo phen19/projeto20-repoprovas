@@ -1,8 +1,10 @@
+import {faker} from "@faker-js/faker"
 export async function validData(){
+  const password = faker.internet.password()
     return {
-        email: "paulo1@driven.com.br",
-        password : "1510",
-        confirmPassword : "1510"
+        email: faker.internet.email(),
+        password : password,
+        confirmPassword: password
       }
 }
 
@@ -20,27 +22,6 @@ export async function invalidJoiValidation(){
         email: "paulodriven.com.br",
         password: 11,
         confirmPassword: 1
-      }
-}
-
-export async function validDataSignIn(){
-    return {
-        email: "paulo1@driven.com.br",
-        password : "1510"
-      }
-}
-
-export async function incorrectPassword(){
-    return {
-        email: "paulo1@driven.com.br",
-        password : "1511"
-      }
-}
-
-export async function incorrectEmail(){
-    return {
-        email: "paulo1@driven.com",
-        password : "1510"
       }
 }
 

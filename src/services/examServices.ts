@@ -31,7 +31,10 @@ async function createExam(examBody: ExamBody){
     if (!existingDiscipline){
         throw {code: "NotFound", message: "Discipline not found"}
     }
-    const teachersDiscipline = await examRepository.findTeachersDisciplineId(existingDiscipline.id, existingTeacher.id)
+    const teachersDiscipline = await examRepository.findTeachersDisciplineId(existingTeacher.id, existingDiscipline.id,)
+    if (!teachersDiscipline){
+        throw {code: "NotFound", message: "Relation between teacher and discipline not found"}
+    }
     const examData :ExamData = {
         name: examBody.name,
         pdfUrl: examBody.pdfUrl,
