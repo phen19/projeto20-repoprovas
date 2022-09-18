@@ -77,13 +77,13 @@ A resposta da requisição deve vir no seguinte formato:
 [
 {
   "number": "período", //string
-  "disciplines": [ //disciplinas do período
+  "disciplines": [
     {
         "name":"nome_disciplina", //string
-        "categories": "[//categorias das provas
+        "categories": [
           {
               "category": "nome_categoria", //string
-              "tests": [//provas da categoria
+              "tests": [
                  {
                     "id": "id_da_prova", //number
                     "name": "nome_da_prova", //string
