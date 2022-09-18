@@ -1,7 +1,7 @@
 # projeto20-repoprovas
 
 <p align="center">
-  <img  src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f4dd.svg">
+  <img  src="https://notion-emojis.s3-us-west-2.amazonaws.com/prod/svg-twitter/1f4dd.svg" height="300px">
 </p>
 <h1 align="center">
   Valex
@@ -20,7 +20,7 @@
 
 # Rotas de criação e login de usuários:
 
-## Rota <span style="color:yellow"> **POST** </span>/signup
+## Rota <span style="color:orange"> **POST** </span>/signup
 
 Sua função é criar novos usuários.
 
@@ -30,7 +30,7 @@ O Body da requisição deve ser feito no seguinte formato:
 {
   "email": "email_do_usuário", //number
   "password": "senha", //string
-  "confirmPassword":"confirmação_de_senha"//string
+  "confirmPassword": "confirmação_de_senha" //string
 }
 ```
 
@@ -47,23 +47,21 @@ O Body da requisição deve ser feito no seguinte formato:
 }
 ```
 
-
 # Rotas de provas:
 
-## Rota <span style="color:yellow"> **POST** </span>/exams
+## Rota <span style="color:orange"> **POST** </span>/exams
 
 Essa é uma rota autenticada com um header http do tipo "Authorization Bearer". Sua função é criar provas no banco.
-
 
 O Body da requisição deve ser feito no seguinte formato:
 
 ```json
 {
   "name": "nome_da_prova", //string,
-  "pdfUrl": "url_prova_pdf",//string,
-  "category":"categoria_da_prova",//string,
-  "discipline: "disciplina_da_prova",//string,
-  "teacher": "professor_da_disciplina"//string
+  "pdfUrl": "url_prova_pdf", //string,
+  "category": "categoria_da_prova", //string,
+  "discipline": "disciplina_da_prova", //string,
+  "teacher": "professor_da_disciplina" //string
 }
 ```
 
@@ -74,18 +72,55 @@ Essa é uma rota autenticada com um header http do tipo "Authorization Bearer". 
 A resposta da requisição deve vir no seguinte formato:
 
 ```json
-[{
-  "number": "período", //string
-  "disciplines": [{
-        "name":"nome_disciplina", //string
-        "categories": [{
-              "category": "nome_categoria", //string
-              "tests": [{
-                    "id": "id_da_prova", //number
-                    "name": "nome_da_prova", //string
-                    "pdfUrl": "url_prova_pdf", //string,
-                    "teacher": "nome_do_professor", //string
-                  }]
-          }]
-    }] 
-}]
+[
+  {
+    "number": "período", //string
+    "disciplines": [
+      {
+        "name": "nome_disciplina", //string
+        "categories": [
+          {
+            "category": "nome_categoria", //string
+            "tests": [
+              {
+                "id": "id_da_prova", //number
+                "name": "nome_da_prova", //string
+                "pdfUrl": "url_prova_pdf", //string,
+                "teacher": "nome_do_professor" //string
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+## Rota <span style="color:yellow"> **GET** </span>/exams/teachers
+
+Essa é uma rota autenticada com um header http do tipo "Authorization Bearer". Sua função é buscar no banco as provas agrupadas por professores
+
+A resposta da requisição deve vir no seguinte formato:
+
+```json
+[
+  {
+    "name": "nome_do_professor", //string
+    "id": "id_do_professor", //number
+    "tests": [
+      {
+        "category": "nome_categoria", //string
+        "tests": [
+          {
+            "id": "id_da_prova", //number
+            "name": "nome_da_prova", //string
+            "pdfUrl": "url_prova_pdf", //string,
+            "discipline": "nome_da_disciplina" //string
+          }
+        ]
+      }
+    ]
+  }
+]
+```
