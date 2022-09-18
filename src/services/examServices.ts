@@ -63,9 +63,9 @@ async function createExam(examBody: ExamBody) {
 
 async function getExamsByDisciplines() {
   const terms = await findManyTerms();
+  const categories = await findManyCategories();
   const examsByTerms = await Promise.all(
     terms.map(async (term) => {
-      const categories = await findManyCategories();
       const result = {
         number: term.id,
         disciplines: term.Disciplines.map((discipline) => {
@@ -100,9 +100,9 @@ async function getExamsByDisciplines() {
 
 async function getExamsByTeacher() {
   const teachers = await findManyTeachers();
+  const categories = await findManyCategories();
   const examsByTeacher = await Promise.all(
     teachers.map(async (teacher) => {
-      const categories = await findManyCategories();
       return {
         ...teacher,
         tests: categories.map((category) => {
