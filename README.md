@@ -74,26 +74,18 @@ Essa é uma rota autenticada com um header http do tipo "Authorization Bearer". 
 A resposta da requisição deve vir no seguinte formato:
 
 ```json
-[
-{
+[{
   "number": "período", //string
-  "disciplines": [
-    {
+  "disciplines": [{
         "name":"nome_disciplina", //string
-        "categories": [
-          {
+        "categories": [{
               "category": "nome_categoria", //string
-              "tests": [
-                 {
+              "tests": [{
                     "id": "id_da_prova", //number
                     "name": "nome_da_prova", //string
                     "pdfUrl": "url_prova_pdf", //string,
                     "teacher": "nome_do_professor", //string
-                  }
-               ]
-          }
-         ]
-     }
-   ] 
-}
-]
+                  }]
+          }]
+    }] 
+}]
