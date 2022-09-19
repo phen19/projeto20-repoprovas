@@ -18,6 +18,11 @@ describe("POST /signup -> create user", () => {
     const body = await validData();
     const result = await supertest(app).post("/signup").send(body);
     expect(result.status).toEqual(201);
+    const userCreated = await prisma.users.findFirst({
+      where: { email: body.email },
+    });
+
+    expect(userCreated).not.toBeNull();
   });
 
   it("returns 409 for conflict", async () => {
@@ -52,7 +57,7 @@ describe("POST /signin -> user login", () => {
     await supertest(app).post("/signup").send(create);
     const login = { email: create.email, password: create.password };
     const result = await supertest(app).post("/signin").send(login);
-    expect(result.body).toBeInstanceOf(Object);
+    expect(typeof result.body.token).toBe("string");
     expect(result.status).toEqual(200);
   });
 

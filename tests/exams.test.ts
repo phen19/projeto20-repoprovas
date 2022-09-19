@@ -114,7 +114,12 @@ describe("GET /exams/disciplines -> getting exams by disciplines/terms", () => {
       .set("Authorization", "Bearer " + token)
       .send();
     expect(result.status).toEqual(200);
-    expect(result.body).toBeInstanceOf(Array);
+    expect(result.body.length).toEqual(6); // 6 períodos
+    expect(result.body[0].disciplines.length).toEqual(2); // 2 disciplinas por período
+    expect(result.body[0].disciplines[0].categories.length).toEqual(3); // 3 categorias de prova
+    expect(result.body[0].disciplines[0].categories[0].tests).toBeInstanceOf(
+      Array
+    ); // array com todas as provas
   });
 
   it("return 401 for invalid token", async () => {
@@ -154,7 +159,10 @@ describe("GET /exams/teachers -> getting exams by teachers", () => {
       .set("Authorization", "Bearer " + token)
       .send();
     expect(result.status).toEqual(200);
-    expect(result.body).toBeInstanceOf(Array);
+    console.log(result.body[0]);
+    expect(result.body.length).toEqual(2); // 2 professores
+    expect(result.body[0].tests.length).toEqual(3); // 3 categorias de prova
+    expect(result.body[0].tests[0].tests).toBeInstanceOf(Array); // array com todas as provas cadastradas
   });
 
   it("return 401 for invalid token", async () => {
