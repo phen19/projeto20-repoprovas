@@ -37,6 +37,18 @@ describe("POST /exams -> create exam", () => {
       .send(body);
     expect(result.status).toEqual(404);
   });
+
+  it("returns 404 for token sent with id of no existing user", async () => {
+    const { token } = await getToken(0);
+    expect(typeof token).toBe("string");
+    const body = await validExamDataNoTeacherDisciplineRelation();
+    const result = await supertest(app)
+      .post("/exams")
+      .set("Authorization", "Bearer " + token)
+      .send(body);
+    expect(result.status).toEqual(404);
+  });
+
   it("returns 401 for invalid token", async () => {
     const insertedUser = await insertUser();
     let { token } = await getToken(insertedUser.id);
