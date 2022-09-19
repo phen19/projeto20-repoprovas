@@ -133,6 +133,15 @@ describe("GET /exams/disciplines -> getting exams by disciplines/terms", () => {
     const result = await supertest(app).get("/exams/disciplines").send();
     expect(result.status).toEqual(401);
   });
+  it("returns 404 for token sent with id of no existing user", async () => {
+    const { token } = await getToken(0);
+    expect(typeof token).toBe("string");
+    const result = await supertest(app)
+      .get("/exams/disciplines")
+      .set("Authorization", "Bearer " + token)
+      .send();
+    expect(result.status).toEqual(404);
+  });
 });
 
 describe("GET /exams/teachers -> getting exams by teachers", () => {
@@ -163,6 +172,16 @@ describe("GET /exams/teachers -> getting exams by teachers", () => {
   it("return 401 for token not sent", async () => {
     const result = await supertest(app).get("/exams/teachers").send();
     expect(result.status).toEqual(401);
+  });
+
+  it("returns 404 for token sent with id of no existing user", async () => {
+    const { token } = await getToken(0);
+    expect(typeof token).toBe("string");
+    const result = await supertest(app)
+      .get("/exams/teachers")
+      .set("Authorization", "Bearer " + token)
+      .send();
+    expect(result.status).toEqual(404);
   });
 });
 afterAll(async () => {
