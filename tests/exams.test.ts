@@ -159,7 +159,6 @@ describe("GET /exams/teachers -> getting exams by teachers", () => {
       .set("Authorization", "Bearer " + token)
       .send();
     expect(result.status).toEqual(200);
-    console.log(result.body[0]);
     expect(result.body.length).toEqual(2); // 2 professores
     expect(result.body[0].tests.length).toEqual(3); // 3 categorias de prova
     expect(result.body[0].tests[0].tests).toBeInstanceOf(Array); // array com todas as provas cadastradas
